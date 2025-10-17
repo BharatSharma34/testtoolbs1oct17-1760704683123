@@ -1,3 +1,6 @@
+from tapestrysdk import image_to_text
+import json
+
 """
 testToolbs1oct17 - Custom Lambda Tool
 Description: test
@@ -7,25 +10,14 @@ The Lambda handler will be automatically appended during deployment.
 DO NOT add lambda_handler code here - it will be added automatically.
 """
 
-def main(event_body):
-    """
-    Main function for testToolbs1oct17
-    This function will be called by the Lambda handler.
-    
-    Parameters:
-    event_body: dict - The request body passed to the Lambda function
-    
-    Returns:
-    dict - JSON-serializable response
-    """
-    # Your tool logic here
-    # Access parameters from event_body
-    # Example: user_input = event_body.get('input_data', '')
-    
-    return {
-        "success": True,
-        "message": "Hello from testToolbs1oct17!",
-        "data": event_body
-    }
 
-# You can add helper functions below
+token = "sk-f0xdav603-mguu2tsm"
+
+def main(user_prompt, document,name):
+    try:
+        result = image_to_text(token, user_prompt, document, name, "describe this image in detail")
+        return result
+    except Exception as e:
+        
+        return {"error": str(e)}
+
